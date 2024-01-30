@@ -1,0 +1,211 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    background-color: rgb(227, 120, 5);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cart-content{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding:10px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.address-button{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:50%;
+    left:30%;
+    padding:10px;
+    background-color: rgba(195, 202, 208, 0.477);
+    border: 3px solid rgba(195, 202, 208, 0.672);
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.751) ,
+                -3px -3px 5px rgba(0, 0, 0, 0.594);
+}
+
+.address-button a{
+    text-decoration: none;
+    color: black;
+    padding:10px;
+    background-color: rgba(227, 217, 217, 0.659);
+    border: 1px solid rgb(227, 217, 217);
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px black ,
+                -1px -1px 5px black;
+}
+
+.address-button a:hover{
+    background-color: rgb(227, 217, 217);
+    border: 1px solid rgba(227, 217, 217, 0.56);
+    box-shadow: inset 1px 1px 5px black ,
+                inset -1px -1px 5px black;
+}
+
+.address{
+    position: relative;
+    padding:30px;
+    padding-top:50px;
+}
+
+.address.hide{
+    display: none;
+}
+
+.address form{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: center;
+}
+
+.address form .inp-box{
+    position: relative;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.address form .inp-box input{
+    appearance: none;
+    border: none;
+    outline: none;
+    position: relative;
+    width: 100%;
+    background: transparent;
+    padding:10px;
+    flex: 1 1 100px;
+    overflow: hidden;
+}
+
+.address form .inp-box input::placeholder{
+    color: white;
+}
+
+.address form .inp-box input:focus{
+    color: black;
+}
+
+.address form button{
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(30, 28, 28);
+    color: white;
+}
+
+.address form button:hover{
+    background-color: white;
+    color:black;
+}
+
+.cart{
+    padding:30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 30px;
+}
+
+.cart-item{
+    position: relative;
+    display: flex;
+    height:200px;
+    width:70%;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-item .cart-img{
+    flex:1 1 100px;
+    border-radius: 30px;
+    width:220px;
+}
+
+.cart-item .cart-img img{
+    height:200px;
+    width:100%;
+    border-radius: 30px 0px 0px 30px;
+}
+
+.cart-item .cart-item-details{
+    flex:1 1 100px;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(1, 1, 1, 0.094)
+}
+
+.cart-item .quantity{
+    flex:1 1 10px;
+    position: relative;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.153);
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-item .quantity a{
+    text-decoration: none;
+    border: 3px solid black;
+    padding: 10px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.cart-item .quantity a:first-child{
+    background-color: red;
+}
+
+.cart-item .quantity a:nth-of-type(2){
+    background-color: green;
+}
+
+.cart-item .quantity a:hover{
+    font-size: 20px;
+}
+
+.cart-item .delete{
+    flex: 1 1 30px;
+    position: relative;
+    height: 100%;
+}
+
+.cart-item .delete a{
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.243);
+}
+
+.cart-item .delete a img{
+    height:80px;
+    width:80px;
+}

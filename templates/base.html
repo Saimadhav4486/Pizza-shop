@@ -1,0 +1,156 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{% static 'products.css' %}">
+    <link rel="stylesheet" href="{% static 'cart.css' %}">
+    <title>{% block title %}Your Website{% endblock %}</title>
+</head>
+<body>
+    
+      <nav>
+        <div class="company_name">
+            <h1>Mcolins</h1>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Products
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                  <a href="#">Pizza</a>
+                  <a href="#">Burger</a>
+                  <a href="#">Sandwiches</a>
+                  <a href="#">Desserts</a>
+                  <a href="#">Drinks</a>
+                </div>
+            </div> 
+        </div>
+        <div class="nav-items">
+            <h4>Hello Surya kiran</h4>
+            <a href="" class="hoverElement" data-tooltip="Cart"><i class="fa-solid fa-cart-shopping fa-lg" style="color:white"></i><p>Cart</p></a>
+            <a href="" class="hoverElement" data-tooltip="Orders"><i class="fa-solid fa-bag-shopping fa-lg" style="color:white"></i><p>Orders</p></a>
+            <a href="" class="hoverElement" data-tooltip="Logout"><i class="fa-solid fa-right-from-bracket fa-lg" style="color:white"></i><p>Logout</p></a>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <script>
+
+        function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+        }
+        
+        window.onclick = function(e) {
+          if (!e.target.matches('.dropbtn')) {
+            var myDropdown = document.getElementById("myDropdown");
+            if (myDropdown.classList.contains('show')) {
+                myDropdown.classList.remove('show');
+            }
+          }
+        }
+
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+        // Hide all carousel items
+        carouselItems.forEach(item => {
+            item.style.display = 'none';
+        });
+
+        // Show the slide at the specified index
+        carouselItems[index].style.display = 'block';
+        }
+
+        function nextSlide() {
+        currentIndex = (currentIndex + 1) % carouselItems.length;
+        showSlide(currentIndex);
+        }
+
+        function previousSlide() {
+        currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+        showSlide(currentIndex);
+        }
+
+        // Show the first slide initially
+        showSlide(currentIndex);
+
+        // Set up event listeners for next and previous buttons
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', previousSlide);
+        // Set up event listeners for touch events on the carousel container for swipe navigation
+
+        const address_change_buttons = document.querySelector(".address-change-button");
+        const addresses = document.querySelector(".address");
+
+        console.log(address_change_buttons);
+        console.log(addresses);
+
+        address_change_buttons.onclick = (event) => {
+            addresses.classList.toggle("hide");
+            event.preventDefault();
+        };
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            reverseGeocode(latitude, longitude);
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        async function reverseGeocode(latitude, longitude) {
+            const apiKey = '7540f5bd09c54cfea3be230b17975212';
+            const apiUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${latitude}+${longitude}&pretty=1`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.results.length > 0) {
+                    const result = data.results[0];
+                    const street = result.components.road || '';
+                    const city = result.components.city || '';
+                    
+                    console.log(`Your location: ${street}, ${city}`);
+                } else {
+                    console.log('Location not found.');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        getUserLocation();
+    </script>
+</body>
+</html> {% endcomment %}

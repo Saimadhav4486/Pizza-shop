@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+.container .left {
+    height: 100vh;
+    width: 50vw;
+    order: 1;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    background-color: rgb(155, 180, 199);
+}
+
+.left .card {
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.left .card .side {
+    backface-visibility: hidden;
+}
+
+.left .back {
+    transform: rotateY(180deg);
+}
+
+.container .right {
+    height: 100vh;
+    width: 50vw;
+    order: 2;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.right .card {
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.right .card .side {
+    backface-visibility: hidden;
+}
+
+.register-box,
+.login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 30%);
+    margin-top: 50px;
+}
+
+form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+form .box {
+    width: 10%;
+    border: 1px solid black;
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+input {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+button {
+    align-self: center;
+    height: 30px;
+    border: 1px solid black;
+    margin: 30px 0px;
+    width: 80%;
+    border-radius: 5px;
+    height: 40px;
+    width: 80%;
+    border-radius: 30px;
+    transition: width 0.5s, border-radius 0.5s;
+}
+
+button:focus {
+    width: 30%;
+    border-radius: 50%;
+}
+
+.register-box .register,
+.login-box .register {
+    display: flex;
+    width: 80%;
+    padding-left: 30px;
+    justify-content: space-around;
+}
+
+hr {
+    width: 50%;
+    margin-top: 30px;
+}
+
+.social {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.social a {
+    margin-top: 22px;
+    align-self: center;
+    border: 3px solid black;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.social a img {
+    height: 30px;
+}
+
+.container.flip .left .card {
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+}
+
+.container.flip .right .card {
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+}
+
+.container .left .card,
+.container .right .card {
+    transition: transform 0.5s ease-in-out;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.fa-solid.fa-unlock.unlock{
+    display: none;
+}

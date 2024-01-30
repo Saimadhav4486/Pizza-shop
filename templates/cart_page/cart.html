@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'cart.css' %}">
+    <title>Cart</title>
+</head>
+<body>
+    <div class="cart-content">
+        <div class="address-button">
+            <p>Deliver to Kanigiri</p>
+            <a href="" class="address-change-button">Change Address</a>
+        </div>
+        <div class="address">
+            <form action="">
+                <div class="inp-box name">
+                    <input type="text" name="name" id="name" placeholder="Name">
+                </div>
+                <div class="inp-box street">
+                    <input type="text" name="street" placeholder="Street">
+                </div>
+                <div class="inp-box city">
+                    <input type="text" name="city" placeholder="City">
+                </div>
+                <div class="inp-box pincodee">
+                    <input type="number" name="pincode" placeholder="Pincode">
+                </div>
+                <div class="inp-box ph-no">
+                    <input type="number" name="ph_no" placeholder="Phone number">
+                </div>
+                <button type="submit">Confirm Address</button>
+            </form>
+        </div>
+
+        <div class="cart">
+            <h1>Cart</h1>
+            {% for cart_item in cart_items %}
+                <div class="cart-item">
+                    <div class="cart-img">
+                        <img src="{{ cart_item.product.item_image.url }}" alt="{{ cart_item.product.name }}">
+                    </div>
+                    <div class="cart-item-details">
+                        <p>{{ cart_item.product.name }}</p>
+                        <p>₹{{ cart_item.product.discounted_price }}</p>
+                    </div>
+                    <div class="quantity">
+                        <a href="{% url 'update_quantity' cart_item.id 'decrease' %}">-</a>
+                        <p>{{ cart_item.quantity }}</p>
+                        <a href="{% url 'update_quantity' cart_item.id 'increase' %}">+</a>
+                    </div>
+                    <div class="delete">
+                        <a href="{% url 'remove_from_cart' cart_item.id %}">
+                            <img src="{% static 'images/delete_image.png' %}" alt="Delete">
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="cart-total">
+                <p>Total Cost: ₹{{ total_cost }}</p>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <script>
+        const address_change_buttons = document.querySelector(".address-change-button");
+        const addresses = document.querySelector(".address");
+
+        console.log(address_change_buttons);
+        console.log(addresses);
+
+        address_change_buttons.onclick = (event) => {
+            addresses.classList.toggle("hide");
+            event.preventDefault();
+        };
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            reverseGeocode(latitude, longitude);
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        async function reverseGeocode(latitude, longitude) {
+            const apiKey = '7540f5bd09c54cfea3be230b17975212';
+            const apiUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${latitude}+${longitude}&pretty=1`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.results.length > 0) {
+                    const result = data.results[0];
+                    const street = result.components.road || '';
+                    const city = result.components.city || '';
+                    
+                    console.log(`Your location: ${street}, ${city}`);
+                } else {
+                    console.log('Location not found.');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        getUserLocation();
+
+        document.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                localStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+          
+        document.addEventListener('DOMContentLoaded', function() {
+            var savedScrollPosition = localStorage.getItem('scrollPosition');
+            if (savedScrollPosition !== null) {
+                window.scrollTo(0, savedScrollPosition);
+            }
+        });
+
+    </script>
+</body>
+</html>
